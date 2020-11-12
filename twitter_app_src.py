@@ -5,6 +5,7 @@ import datetime
 
 
 def get_tweets(start, end):
+    header = {"authorization": f"Bearer {keys.bearer_token}"}
     uri = "https://api.twitter.com/2/tweets/search/recent"
     parameters = {
         "query": "#TidyTuesday -is:retweet has:media -titty -#findom",
@@ -14,7 +15,6 @@ def get_tweets(start, end):
         "start_time": start,
         "end_time": end
     }
-    header = {"authorization": f"Bearer {keys.bearer_token}"}
 
     print("Getting first tweet page...")
     tweet_request = requests.get(url=uri, params=parameters, headers=header)
