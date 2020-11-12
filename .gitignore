@@ -1,0 +1,12 @@
+keys.py
+keys.bat
+twitter_powershell.ps1
+*.csv
+tt_csv_2020/
+tt_csv_2021/
+twitter_r/
+.Rhistory
+basic_twitter_access.py
+manual_twitter_access.py
+__pycache__/
+.idea/
