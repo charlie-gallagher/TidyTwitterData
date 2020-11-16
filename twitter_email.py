@@ -31,14 +31,19 @@ g_host = 'smtp.google.com'
 g_port = 465
 g_context = ssl.create_default_context()
 
-from_address = "dev.charlie.gallagher@gmail.com"
-to_address = "dev.charlie.gallagher@gmail.com"
+me = "dev.charlie.gallagher@gmail.com"
+other_me = "charlesjgallagher15@gmail.com"
 
-passwd = "G@11@gher"
+passwd = input("Password: ")
+message = """
+Dear Charlie,
 
-message = "Hello world"
+Be well.
+
+Other Charlie
+"""
+
 
 with smtplib.SMTP_SSL(host=g_host, port=g_port, context=g_context) as g:
-    g.login("dev.charlie.gallagher@gmail.com", passwd)
-    g.sendmail(from_address, to_address, message)
-
+    g.login(me, passwd)
+    g.sendmail(me, other_me, message)

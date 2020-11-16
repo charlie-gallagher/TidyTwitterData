@@ -151,4 +151,4 @@ with smtplib.SMTP_SSL(host=g_host, port=g_port, context=g_context) as g:
     g.send_message(msg)
 ```
 
-This didn't work, and I'm not sure why.
+This didn't work, and I'm not sure why. It looks like I might have been temporarily blacklisted by Google, but I can't be sure. It times out and gives error code WinError 10060, a Timeout Error. Weird. 
