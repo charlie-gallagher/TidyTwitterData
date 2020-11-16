@@ -10,3 +10,5 @@ basic_twitter_access.py
 manual_twitter_access.py
 __pycache__/
 .idea/
+credentials.json
+token.pickle
