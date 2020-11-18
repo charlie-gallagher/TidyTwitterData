@@ -1,33 +1,19 @@
-import smtplib
-import ssl
-from email.message import EmailMessage
-from getpass import getpass
+import twitter_app_src as tw
+import gmail_api
+from datetime import date
 
 
-me = "dev.charlie.gallagher@gmail.com"
-text = """\
-Hi,
-How are you?
-Real Python has many great tutorials:
-www.realpython.com"""
+today = date.today()
+start_date = tw.time_24_hours()
+end_date = tw.time_now()
 
-msg = EmailMessage()
-msg.set_content(text)
+tweet = tw.get_tweets(start=start_date, end=end_date)
+tw_users = tw.make_twitter_users(tweets=tweet)
 
-msg['Subject'] = "Hello to you"
-msg['From'] = me
-msg['To'] = me
+msg = tw.tweet_text(tweets=tweet, users=tw_users)
+msg = f"Twitter update\nDate: {today}\n\n" + msg
 
-g_host = 'smtp.gmail.com'
-g_port = 465
-g_context = ssl.create_default_context()
-print(f"\nEmail: {me}")
-passwd = getpass('Password: ')
-
-# Working with API
+gmail_api.send_twitter_email(tw_msg=msg, today=today)
 
 
-with smtplib.SMTP_SSL(host=g_host, port=g_port, context=g_context) as g:
-    g.docmd('AUTH', 'XOAUTH2 ' + auth_string)
-    g.send_message(msg)
 

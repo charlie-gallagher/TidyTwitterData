@@ -4,7 +4,7 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
-from email.mime.text import MIMEText
+from email.message import EmailMessage
 import base64
 
 # If modifying these scopes, delete the file token.pickle.
@@ -13,10 +13,11 @@ SCOPES = ['https://www.googleapis.com/auth/gmail.readonly',
 
 
 def create_message(sender, to, subject, msg):
-    message = MIMEText(msg)
-    message['to'] = to
-    message['from'] = sender
-    message['subject'] = subject
+    message = EmailMessage()
+    message.set_content(msg)
+    message['To'] = to
+    message['From'] = sender
+    message['Subject'] = subject
 
     # Base 64 encode
     b64_bytes = base64.urlsafe_b64encode(message.as_bytes())
@@ -31,9 +32,13 @@ def send_message(service, user_id, message):
     return message
 
 
-def main():
-    """Shows basic usage of the Gmail API.
-    Lists the user's Gmail labels.
+def send_twitter_email(tw_msg, today):
+    """
+    Send an email to myself containing tw_msg.
+
+    :param tw_msg: Text-form message to send
+    :param today: Date today
+    :return: None
     """
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
@@ -56,20 +61,12 @@ def main():
 
     service = build('gmail', 'v1', credentials=creds)
 
-    # Example write
+    # Example send mail
 
-    complex_msg = """
-    Dear Charlie,
-    
-    This is other Charlie. I am the Captain now. 
-    
-    /C
-    """
+
     msg = create_message("charlesjgallagher15@gmail.com",
                          "charlesjgallagher15@gmail.com",
-                         "I am the captain", complex_msg)
+                         f"Twitter update: {today}", tw_msg)
     send_message(service, 'me', msg)
 
 
-if __name__ == '__main__':
-    main()

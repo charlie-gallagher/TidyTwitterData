@@ -104,6 +104,31 @@ def print_tweets(tweets, users):
 
             print(f"{username:25}{likes:5}{retweets:12}{quotes:9}{replies:9}")
 
+def tweet_text(tweets, users):
+    """
+    Return a summary of the tweet data as a list of strings
+    :param tweets: JSON-like Python object
+    :param users: Dictionary of users and attributes
+    :return: Formatted tweet text as a single string
+    """
+
+    tweet_txt = ["Handle                   Likes    Retweets   Quotes  "
+                 "Replies", "------                   -----    --------   "
+                            "------  -------"]
+    for page in tweets:
+        for tw in page["data"]:
+            likes = tw["public_metrics"]["like_count"]
+            retweets = tw["public_metrics"]["retweet_count"]
+            quotes = tw["public_metrics"]["quote_count"]
+            replies = tw["public_metrics"]["reply_count"]
+            userid = tw["author_id"]
+            username = users[userid][2]
+
+            tweet_txt.append(
+                f"{username:25}{likes:5}{retweets:12}{quotes:9}{replies:9}"
+            )
+        output = '\n'.join(tweet_txt)
+        return output
 
 # Generating valid dates
 def time_now():
@@ -111,6 +136,12 @@ def time_now():
     t = datetime.datetime.now() - datetime.timedelta(minutes=10)
     return t.strftime("%Y-%m-%dT%H:%M:%S-05:00")
 
+def time_24_hours():
+    """ Return string of nearly one day ago """
+    t = datetime.datetime.now() - datetime.timedelta(hours=23,
+                                                     minutes=59,
+                                                     seconds=0)
+    return t.strftime("%Y-%m-%dT%H:%M:%S-05:00")
 
 def time_seven_days():
     """ Return string of nearly seven days ago """
