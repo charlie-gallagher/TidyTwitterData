@@ -54,3 +54,10 @@ The API is very flexible (read: complicated), so rather than describe why I chos
 - [General API Documentation](https://developer.twitter.com/en/docs/twitter-api)
 - [Search Requests Documentation](https://developer.twitter.com/en/docs/twitter-api/tweets/search/introduction)
 - [Formatting Twitter Searches](https://developer.twitter.com/en/docs/twitter-api/tweets/search/integrate/build-a-rule)
+
+# Setting up Email
+I recently added an email feature so that Tweet data can easily be sent to any email(s) you want. The files associated with this are `gmail_api.py` and `twitter_email.py`. The former interacts with the GMail API and the latter creates a formatted email with the Twitter data. At the moment, the email is a single text string, but perhaps a better implementation is to use a file system. A text file is easier to generate probably than a text string, and easier to check. Then simply read in the text file as a long string and off you go. But while the emails are relatively simple, this just adds unnecessary complexity. 
+
+Google's GMail API uses OAuth2.0 to authorize users, and once you are a developer user, this authorization will be started automatically from the app. First, you need credentials, which you can get from the GMail Python [quickstart page](https://developers.google.com/gmail/api/quickstart/python). Follow the instructions bu don't run their `startup.py` file; it works but it's written for Python 2.7, not 3.8. In `google_api.py`, I give an updated version of this file. The first time you run it (and any time you delete `token.pickle`) it will redirect you to GMail to allow permission to the app. The refresh token expires every hour or fiftenn minutes or something, but it is automatiacally refreshed by the function. 
+
+In sum, to get email to work, you must use GMail, and you have to have GMail API credentials in your working directory as per the quickstart page. 
