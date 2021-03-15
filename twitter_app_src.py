@@ -132,16 +132,20 @@ def tweet_text(tweets, users):
 
 # Generating valid dates
 def time_now():
-    """ Return string current time """
+    """ Return string current time
+
+    NOTE: The hour offset needs to be updated with daylight savings
+
+    """
     t = datetime.datetime.now() - datetime.timedelta(minutes=10)
-    return t.strftime("%Y-%m-%dT%H:%M:%S-05:00")
+    return t.strftime("%Y-%m-%dT%H:%M:%S-04:00")
 
 def time_24_hours():
     """ Return string of nearly one day ago """
     t = datetime.datetime.now() - datetime.timedelta(hours=23,
                                                      minutes=59,
                                                      seconds=0)
-    return t.strftime("%Y-%m-%dT%H:%M:%S-05:00")
+    return t.strftime("%Y-%m-%dT%H:%M:%S-04:00")
 
 def time_seven_days():
     """ Return string of nearly seven days ago """
@@ -149,4 +153,4 @@ def time_seven_days():
                                                      hours=23,
                                                      minutes=59,
                                                      seconds=0)
-    return t.strftime("%Y-%m-%dT%H:%M:%S-05:00")
+    return t.strftime("%Y-%m-%dT%H:%M:%S-04:00")
